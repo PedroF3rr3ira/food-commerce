@@ -1,0 +1,28 @@
+{
+  "burgers": [
+    {
+      "id": 1,
+      "snack": "burger",
+      "name": "Mega",
+      "description":"Hambúrguer atersanal com 3 carnes suculentas, queijo e bacon",
+      "price":25.5,
+      "image":"https://i.imgur.com/upjIUnG.jpg"
+    },
+    {
+      "id": 2,
+      "snack": "burger",
+      "name": "Duplo Burger",
+      "description":"Hambúrguer atersanal com 2 carnes suculentas, cheddar, alface e tomate",
+      "price":27.9,
+      "image":"https://i.imgur.com/3PdgJe4.jpeg"
+    },
+    {
+      "id": 3,
+      "snack": "burger",
+      "name": "Burger",
+      "description":"Hambúrguer atersanal com 1 carne, cheddar, tomate e alface",
+      "price":19,
+      "image":"https://images.pexels.com/photos/2702674/pexels-photo-2702674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    }
+  ]
+}
