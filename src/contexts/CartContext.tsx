@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useState} from 'react'
 import { SnackData } from "../interfaces/SnackData";
+import { toast } from 'react-toastify';
 
 
 interface Snack extends SnackData{
@@ -47,15 +48,16 @@ export function CartProvider({children}:CartProviderProps){
         }
         return item
       })
+      toast.success(`Outro(a) ${snack.snack} ${snack.name} adicionado nos pedidos`)
       setCart(newCart)
       return;
     }
-    console.log("cheguei aqui")
 
     const newSnack = {...snack, quantity:1, subtotal: snack.price}
     const newCart = [...cart, newSnack]
 
-    console.log(`newCart`,newCart)
+    toast.success(`${snack.snack} ${snack.name} adicionado nos pedidos`)
+
 
     setCart(newCart)
   }

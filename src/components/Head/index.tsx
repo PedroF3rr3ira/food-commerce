@@ -10,5 +10,5 @@ export function Head({title,description=''}:HeadProps){
   document.title = `Food Commerce | ${title}`
   document.querySelector('[name=description]')?.setAttribute('content',description)
 
-  return <Title>{title}</Title>;
+  return null;
 }
