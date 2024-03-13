@@ -5,10 +5,12 @@ export const Container = styled.main`
   padding: 2rem 2.5rem;
   border-radius: 8px;
 
+
   table {
     width: 100%;
     border-spacing: 0 0;
     border-collapse: collapse;
+    margin-bottom: 1rem;
 
     th {
       padding: 0 1rem 0.5rem 1rem;
@@ -27,6 +29,26 @@ export const Container = styled.main`
       padding: 1.5rem 1rem 1.5rem 1rem;
       padding-top: 1.5rem;
       border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+
+      div{
+        display:flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        button{
+          background: none;
+          flex:0;
+          border:none;
+
+          display:flex;
+          align-items: center;
+          justify-content: center;
+
+          img{
+            width:1.25rem;
+          }
+        }
+      }
 
       h4 {
         margin-bottom: 0.5rem;
