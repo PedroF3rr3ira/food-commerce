@@ -1,21 +1,12 @@
 import { createContext, ReactNode, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SnackData } from '../interfaces/SnackData'
 import { toast } from 'react-toastify'
+import { CustomerData } from '../interfaces/CustomerData'
 
 interface Snack extends SnackData {
   quantity: number
   subtotal: number
-}
-
-interface RemoveSnackFromCart {
-  id: number
-  snack: string
-}
-
-interface UpdateCartProps {
-  id: number
-  snack: string
-  newQuantity: number
 }
 
 interface CartContextProps {
@@ -24,7 +15,8 @@ interface CartContextProps {
   removeSnackFromCart: (id: number, snack: Snack) => void
   decrementSnackFromCart: (id: number, snack: Snack) => void
   incrementSnackFromCart: (id: number, snack: Snack) => void
-  // confirmOrder: () => void
+  confirmOrder: () => void
+  payOrder:(customer:CustomerData)=>void
 }
 
 interface CartProviderProps {
@@ -34,6 +26,7 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContextProps)
 
 export function CartProvider({ children }: CartProviderProps) {
+  const navigate = useNavigate()
   const [cart, setCart] = useState<Snack[]>([])
 
   function addSnackIntoCart(snack: SnackData): void {
@@ -77,10 +70,17 @@ export function CartProvider({ children }: CartProviderProps) {
   }
 
   function decrementSnackFromCart(id: number, snack: Snack) {
-    if (snack.quantity > 1) updateSnackQuantity(id, snack, snack.quantity-1)
+    if (snack.quantity > 1) updateSnackQuantity(id, snack, snack.quantity - 1)
   }
   function incrementSnackFromCart(id: number, snack: Snack) {
-    updateSnackQuantity(id, snack, snack.quantity+1)
+    updateSnackQuantity(id, snack, snack.quantity + 1)
+  }
+
+  function confirmOrder(){
+    navigate('/payment')
+  }
+  function payOrder(customer:CustomerData){
+    return
   }
 
   return (
@@ -91,6 +91,8 @@ export function CartProvider({ children }: CartProviderProps) {
         removeSnackFromCart,
         decrementSnackFromCart,
         incrementSnackFromCart,
+        confirmOrder,
+        payOrder,
       }}
     >
       {children}
