@@ -25,9 +25,26 @@ interface CartProviderProps {
 
 export const CartContext = createContext({} as CartContextProps)
 
+const localStorageKey = '@FoodCommerce:cart'
+
 export function CartProvider({ children }: CartProviderProps) {
+
   const navigate = useNavigate()
-  const [cart, setCart] = useState<Snack[]>([])
+  const [cart, setCart] = useState<Snack[]>(()=>{
+    const value = localStorage.getItem(localStorageKey)
+    if(value) return JSON.parse(value)
+
+    return []
+  })
+
+  function saveCart(items:Snack[]){
+    setCart(items)
+    localStorage.setItem(localStorageKey,JSON.stringify(items))
+  }
+
+  function clearCart(){
+    localStorage.removeItem(localStorageKey)
+  }
 
   function addSnackIntoCart(snack: SnackData): void {
     const snackExists = cart.find((item) => item.snack === snack.snack && item.id === snack.id)
@@ -42,7 +59,7 @@ export function CartProvider({ children }: CartProviderProps) {
         return item
       })
       toast.success(`Outro(a) ${snack.snack} ${snack.name} adicionado nos pedidos`)
-      setCart(newCart)
+      saveCart(newCart)
       return
     }
 
@@ -51,12 +68,12 @@ export function CartProvider({ children }: CartProviderProps) {
 
     toast.success(`${snack.snack} ${snack.name} adicionado nos pedidos`)
 
-    setCart(newCart)
+    saveCart(newCart)
   }
 
   function removeSnackFromCart(id: number, snack: Snack) {
     const newCart = cart.filter((item) => !(item.id === id && item.snack === snack.snack))
-    setCart(newCart)
+    saveCart(newCart)
   }
 
   function updateSnackQuantity(id: number, snack: Snack, quantity: number) {
@@ -66,7 +83,7 @@ export function CartProvider({ children }: CartProviderProps) {
       }
       return item
     })
-    setCart(newCart)
+    saveCart(newCart)
   }
 
   function decrementSnackFromCart(id: number, snack: Snack) {
@@ -80,7 +97,7 @@ export function CartProvider({ children }: CartProviderProps) {
     navigate('/payment')
   }
   function payOrder(customer:CustomerData){
-    return
+    clearCart()
   }
 
   return (
